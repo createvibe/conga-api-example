@@ -1,0 +1,26 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "description": "Example API",
+  "directories": {
+    "test": "test"
+  },
+  "main": "",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "dependencies": {
+    "mongodb": "2.1.16",
+    "bass-mongodb": "^0.0.33",
+    "conga-assets": "^0.0.3",
+    "conga-bass": "^0.0.8",
+    "conga-framework": "^0.0.26",
+    "conga-rest": "^0.0.13",
+    "conga-validation": "^0.0.3",
+    "conga-twig": "^0.0.4",
+    "q": "^1.4.1",
+    "nodemailer": "^0.7.1"
+  },
+  "devDependencies": { },
+  "readmeFilename": "README.md"
+}

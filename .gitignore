@@ -1,0 +1,9 @@
+.vagrant
+
+**/app/config/parameters.yml
+
+**/cache/*
+**/logs/*
+**/tmp/*
+**/bundles/*
+**/node_modules

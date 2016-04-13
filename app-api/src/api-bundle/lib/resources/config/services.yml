@@ -1,0 +1,24 @@
+parameters:
+
+    pre.controller.listener.constructor: api-bundle:listeners/PreControllerListener
+
+    user.service.constructor: api-bundle:services/UserService
+    email.service.constructor: api-bundle:services/EmailService
+
+services:
+
+    # pre-controller listner
+    pre.controller.listener:
+        constructor: "%pre.controller.listener.constructor%"
+        tags:
+            - { name: kernel.pre_controller, method: onPreController }
+
+    # the user service
+    user.service:
+        constructor: "%user.service.constructor%"
+        arguments: ['@service_container']
+
+    # the email service
+    email.service:
+        constructor: "%email.service.constructor%"
+        arguments: ['@service_container']

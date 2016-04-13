@@ -1,0 +1,23 @@
+parameters:
+
+    # general app
+    app.environment: development
+    app.http.host: localhost
+    app.http.port: 3000
+    app.https.host: localhost
+    app.https.port: 3001
+    app.session.secret: not-secret-change-me
+
+    # response headers
+    response.x-powered-by: BloomNation
+
+    # mongodb
+    mongodb.host: localhost
+    mongodb.port: 27017
+    mongodb.database: bloom
+
+    # nodemailer
+    email.transport.type: SMTP
+    email.transport.config.service: Gmail
+    email.transport.config.auth.user: changeme@email.com
+    email.transport.config.auto.pass: changeme

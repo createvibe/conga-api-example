@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    {% block head %}
+        <head>
+            <title>{% block head_title "BloomNation" %}</title>
+        </head>
+    {% endblock head %}
+    <body>
+        {% block body_header "" %}
+
+        {% block body "This message has no content" %}
+
+        {% block body_footer %}
+            <p>This email was sent from BloomNation.</p>
+            <p>Click <a href="#">here</a> to stop receiving future emails.</p>
+        {% endblock %}
+    </body>
+</html>

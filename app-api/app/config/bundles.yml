@@ -1,0 +1,12 @@
+# bundles to enable
+bundles:
+
+    # project bundles (from src/ directory)
+    - api-bundle
+
+    # core conga bundles (from node_modules/ directory)
+    - conga-assets
+    - conga-bass
+    - conga-rest
+    - conga-validation
+    - conga-twig
