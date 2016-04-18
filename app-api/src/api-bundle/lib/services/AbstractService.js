@@ -6,6 +6,7 @@ var Q = require('q');
 // local libs
 var InvalidArgumentError = require('../error/InvalidArgumentError'),
     HttpError = require('../error/http/HttpError'),
+    AccessDeniedError = require('../error/http/AccessDeniedError'),
     NotFoundError = require('../error/http/NotFoundError'),
     ValidationError = require('../error/http/ValidationError'),
     ConflictError = require('../error/http/ConflictError');
@@ -71,6 +72,15 @@ AbstractService.prototype = {
      */
     createHttpError: function createHttpError(errors, message) {
         return new HttpError(errors, message);
+    },
+
+    /**
+     * Create and return an access denied error (401)
+     * @param {string} message The error message
+     * @returns {AccessDeniedError}
+     */
+    createAccessDeniedError: function createAccessDeniedError(message) {
+        return new AccessDeniedError(message);
     },
 
     /**

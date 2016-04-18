@@ -61,12 +61,30 @@ Conga.inherits(UserService, AbstractService, {
 
         this.ensureManager(manager).then(function (ensure) {
 
-            // find the user by id
+            // find the user by criteria
             ensure.manager.getRepository('User')
                 .findBy(criteria)
                 .then(deferred.resolve)
                 .fail(deferred.reject);
 
+        }).fail(deferred.reject);
+
+        return deferred.promise;
+    },
+
+    /**
+     * Get one user by criteria
+     * @see UserService.getUsersByCriteria
+     */
+    getOneUserByCriteria: function getOneUserByCriteria(criteria, manager) {
+        var deferred = Q.defer();
+
+        this.getUsersByCriteria(criteria, manager).then(function(users) {
+            if (users) {
+                deferred.resolve(users[0]);
+            } else {
+                deferred.resolve(null);
+            }
         }).fail(deferred.reject);
 
         return deferred.promise;

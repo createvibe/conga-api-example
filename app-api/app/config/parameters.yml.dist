@@ -21,3 +21,7 @@ parameters:
     email.transport.config.service: Gmail
     email.transport.config.auth.user: changeme@email.com
     email.transport.config.auto.pass: changeme
+
+    # email templates
+    email.template.welcome: api-bundle:email/user-welcome
+    email.template.welcome.subject: Welcome to the team!

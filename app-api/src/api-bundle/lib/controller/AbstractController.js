@@ -35,6 +35,13 @@ AbstractController.prototype = {
     },
 
     /**
+     * @see AbstractService.createAccessDeniedError
+     */
+    createAccessDeniedError: function createAccessDeniedError() {
+        return AbstractService.prototype.createAccessDeniedError.apply(this, arguments);
+    },
+
+    /**
      * @see AbstractService.createNotFoundError
      */
     createNotFoundError: function createNotFoundError() {
@@ -62,6 +69,10 @@ AbstractController.prototype = {
 
             case 'InvalidArgumentErorr' :
                 res.BAD_REQUEST(json);
+                break;
+
+            case 'AccessDeniedError' :
+                res.UNAUTHORIZED(json);
                 break;
 
             case 'NotFoundError' :

@@ -65,10 +65,28 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-    sudo apt-get install -y nodejs build-essential libkrb5-dev mongodb
 
+    # general
+    sudo apt-get update
+    sudo apt-get install -y build-essential libkrb5-dev watch
+
+    # mongodb v3
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+    echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+    sudo apt-get update
+    sudo apt-get install -y mongodb-org
+
+    # nodejs
+    curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+    sudo apt-get install -y nodejs
     node -v
+
+    # congajs
     npm install -g conga
+
+    # install custom apps
+    mkdir -p /vagrant/app-api/node_modules
+    npm install --prefix /vagrant/app-api /vagrant/app-api
+
   SHELL
 end

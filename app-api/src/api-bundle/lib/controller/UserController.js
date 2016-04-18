@@ -30,8 +30,8 @@ Conga.inherits(UserController, AbstractController, {
 			// send a welcome email (background operation)
 			self.get('email.service').sendEmail({
 				to: user.email,
-				subject: 'Welcome To BloomNation!',
-				template: 'api-bundle:email/user-welcome',
+				subject: self.getParameter('email.template.welcome.subject'),
+				template: self.getParameter('email.template.welcome'),
 				context: {user: user}
 			}).fail(console.error);
 
@@ -43,7 +43,6 @@ Conga.inherits(UserController, AbstractController, {
 
 	/**
 	 * @Route("/:id", name="user.get", methods=["GET"])
-	 * @Security(roles=["USER"])
 	 */
 	getUser: function(req, res) {
 		var self = this,
@@ -64,8 +63,7 @@ Conga.inherits(UserController, AbstractController, {
 	},
 
 	/**
-	 * @Route("/:id", name="user.update", methods=["POST","PUT"])
-	 * @Security(roles=["USER"])
+	 * @Route("/:id", name="user.update", methods=["PUT"])
      */
 	updateUser: function(req, res) {
 		var userId = req.params.id;
@@ -84,7 +82,6 @@ Conga.inherits(UserController, AbstractController, {
 
 	/**
 	 * @Route("/:id", name="user.delete", methods=["DELETE"])
-	 * @Security(roles=["ADMIN"])
      */
 	deleteUser: function(req, res) {
 		var userId = req.params.id;
@@ -97,6 +94,34 @@ Conga.inherits(UserController, AbstractController, {
 			// success callback
 			res.OK();
 
+		}).fail(errorCallback);
+	},
+
+	/**
+	 * @Route("/login", name="user.login", methods=["POST"])
+	 */
+	loginUser: function(req, res) {
+		var email = req.body.email;
+		var password = req.body.password;
+		var userService = this.get('user.service');
+		var accessDeniedError = this.createAccessDeniedError('Email or password is invalid.');
+
+		// create a callback for error responses
+		var errorCallback = this.createErrorCallback(res, 'Unable to login');
+
+		userService.getOneUserByCriteria({email: email}).then(function (user) {
+			if (!user) {
+				// invalid email
+				errorCallback(accessDeniedError);
+				return;
+			}
+			if (!userService.isUserPassword(user, password)) {
+				// invalid password
+				errorCallback(accessDeniedError);
+				return;
+			}
+			// return the user
+			res.return(user);
 		}).fail(errorCallback);
 	}
 });
